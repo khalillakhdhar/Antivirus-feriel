@@ -12,6 +12,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.io.File;
 import java.util.*;
 
 
@@ -43,12 +44,26 @@ public class DemoJFileChooser extends JPanel
          +  chooser.getCurrentDirectory());
       System.out.println("getSelectedFile() : " 
          +  chooser.getSelectedFile());
-      }
+    
+              showFiles(chooser.getCurrentDirectory().listFiles());
+
+      
+      
+    }
     else {
       System.out.println("No Selection ");
       }
      }
-
+ public static void showFiles(File[] files) {
+        for (File file : files) {
+            if (file.isDirectory()) {
+                System.out.println("Directory: " + file.getAbsolutePath());
+                showFiles(file.listFiles()); // Calls same method again.
+            } else {
+                System.out.println("File: " + file.getAbsolutePath());
+            }
+        }
+    }
   public Dimension getPreferredSize(){
     return new Dimension(200, 200);
     }
